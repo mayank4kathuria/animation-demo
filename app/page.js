@@ -1,22 +1,49 @@
 "use client"
+
+import { useState } from 'react';
+
 import Image from "next/image";
 import { motion } from "motion/react"
 
 
 export default function Home() {
-  return <div className="h-screen w-screen bg-white" >
 
-    <motion.div
-      style={{
-        width: 100,
-        height: 100,
-        backgroundColor: "#ff0088",
-        borderRadius: 5,
-      }}
-      animate={{ rotate: 360 }}
-      transition={{ duration: 1 }}
-      whileHover={{ scale: 1.1 }}
-    />
+  const [position, setPosition] = useState(0); // 0 ->  left , 1 -> right
+  
+  const updatePosition = () => setPosition(!position);
+
+
+  return <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]" >
+    <div className="w-screen flex justify-center items-center" >
+      {/* <motion.div
+        style={{
+          width: 100,
+          height: 100,
+          backgroundColor: "#ff0088",
+          borderRadius: 5,
+        }}
+        animate={{ rotate: 360 }}
+        transition={{ duration: 1 }}
+        whileHover={{ scale: 1.1 }}
+      /> */}
+      <motion.div
+        style={{ height: 100, width: 100, backgroundColor: '#ff0000' }}
+        initial={{ rotate: 0, scale: 1 }}
+        animate={{ rotate: 45, transition: { duration: 2, type: 'spring' } }}
+        whileHover={{ scale: 1.2 }}
+      />
+
+      <div className={`p-4 w-1/2 flex items-center  justify-center`} > 
+      {/* ${position ? 'justify-end' : 'justify-start'} */}
+        <motion.div 
+          style={{ height: 80, width: 80, backgroundColor: position ? '#ff0000' : '#0000ff', borderRadius: '50%' }}
+          initial={{ scale: 1 }}
+          animate={{ scale: position ? 1.3 : 1, transition: { duration: 1 } }}
+          layout
+        />
+      </div>
+      <button onClick={updatePosition} className='bg-white p-4 text-black' >Magic</button>
+    </div>
   </div>
 }
 
